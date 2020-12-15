@@ -1,4 +1,4 @@
-module github.com/esoptra/Home24
+module github.com/anil-appface/Home24
 
 go 1.13
 
