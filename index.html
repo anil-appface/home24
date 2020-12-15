@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HOME 24 App</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body class="container">
+    
+      <header>
+        <a class="logo" href="/">HOME 24</a>
+      </header>
+  
+      <form action="/details" method="post">
+        <input
+          autofocus
+          value="{{.InputURL}}"
+          class="urldetails-input"
+          placeholder="Enter URL to get details"
+          name="urldetails"
+        />
+        <input type="submit" value="Get Details">
+      </form>
+
+        {{if $.ErrorString}}
+        <div class="error-div">
+                {{$.ErrorString}}
+        </div>
+
+        {{else}}
+        <div class="page-details">
+            
+            <table class="htag-details-table">
+                <tr>
+                  <th>Page Title</th>
+                  <th>HTML Version</th>
+                  <th>Has Login Form</th>
+                </tr>
+                <tr>
+                  <td>
+                    {{$.PageTitle}}
+                  </td>
+                  <td>
+                    {{$.HTMLVersion}}
+                  </td>
+                  <td>
+                    {{$.HasLoginForm}}
+                  </td>
+                </tr>
+              </table>
+
+            <table class="htag-details-table">
+                <tr>
+                  <th>Tag</th>
+                  <th>Count</th>
+                </tr>
+                {{ range $k, $v := $.HTags }}  
+                <tr>
+                  <td>{{$k}}</td>
+                  <td>{{$v}}</td>
+                </tr>
+                {{ end }}
+              </table>
+
+              <table class="htag-details-table">
+                <tr>
+                  <th>Internal Links</th>
+                  <th>External Links</th>
+                  <th>InAccessible Links</th>
+                </tr>
+               
+                <tr>
+                    <td>
+                    {{ len  $.InternalLinks  }}  
+                    </td>
+                    <td>
+                    {{ len  $.ExternalLinks  }}  
+                    </td>
+                    <td>
+                      {{ len  $.InAccessibleLinks  }}  
+                    </td>
+                </tr>
+              </table>
+
+        </div>
+        {{end}}
+  </body>
+</html>
