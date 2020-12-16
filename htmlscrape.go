@@ -1,4 +1,3 @@
-// Package scrape provides a searching api on top of golang.org/x/net/html
 package main
 
 import (
@@ -119,7 +118,7 @@ func getHTMLDoctype(r io.Reader) string {
 			startIndexStr := "-//W3C//DTD "
 			startIndex := strings.Index(doctype, startIndexStr)
 			endIndex := strings.Index(doctype, "//EN")
-			if doctype == "html" {
+			if strings.ToLower(doctype) == "html" {
 				return "HTML 5.0"
 			}
 			htmlVersion := doctype[startIndex+len(startIndexStr) : endIndex]
