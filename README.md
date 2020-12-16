@@ -8,12 +8,36 @@ I have deployed this in HEROKU <a href="https://home24.herokuapp.com/">home24</a
 This is a web application written in Go. 
 This application expects the valid URL for which it gets the following details for you. 
   1. Page Title.
+  
+  The text inside the title tag considers the page title.
+  
   2. HTML Version. 
-  3. Internal Links Count. 
-  4. External Links Count.
+  
+  The HTML version is determined by the doctype tag. 
+  
+  3. Internal Links Count & list of all links
+  
+  The Links which are internal to the application, and to which address cannot be found are treated as Internal links
+  
+  4. External Links Count & list of all external links
+  
+  The Links which are external, and those which has valid address are treated as External links.
+  
   5. InAccessible Links Count.
+  
+  If the response of the head request for the external links falls under 200 and above 300 are considered as Inaccessible links.
+  
   6. Whether WebPage has Login Form or not.
+  
+  Finding this subjective to developer. 
+  But in this app, I'm deciding whether the app has login page or not based on the `input type=password`.
+  TODO:: 
+    i .Can check whether the form has method post
+    ii. Should have one input with type submit. (Again this one is not necessary) 
+  
   7. Each Heading Tag Count.
+  
+  Count the H1, H2, H3, H4, H5, H6 Tags in the page.
   
 ## How to run?
 
