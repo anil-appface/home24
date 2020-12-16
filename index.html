@@ -7,6 +7,27 @@
     <title>HOME 24 App</title>
     <link rel="stylesheet" href="/assets/style.css" />
   </head>
+
+  <script>
+    function showInAccessibleLinks() {
+      document.getElementById("external-links-div").style.display = 'none'
+      document.getElementById("internal-links-div").style.display = 'none'
+      document.getElementById("inaccessible-links-div").style.display = 'block'
+    }
+
+    function showExternalLinks() {
+      document.getElementById("inaccessible-links-div").style.display = 'none'
+      document.getElementById("internal-links-div").style.display = 'none'
+      document.getElementById("external-links-div").style.display = 'block'
+    }
+
+    function showInternalLinks() {
+      document.getElementById("inaccessible-links-div").style.display = 'none'
+      document.getElementById("external-links-div").style.display = 'none'
+      document.getElementById("internal-links-div").style.display = 'block'
+    }
+
+  </script>
   <body class="container">
     
       <header>
@@ -73,18 +94,64 @@
                
                 <tr>
                     <td>
-                    {{ len  $.InternalLinks  }}  
+                    {{ len  $.InternalLinks  }}  </br>
+                    {{ if len  $.InternalLinks  }} 
+                      <button onclick="showInternalLinks()">Show Internal Links</button>
+                    {{ end }}
                     </td>
                     <td>
-                    {{ len  $.ExternalLinks  }}  
+                    {{ len  $.ExternalLinks  }}  </br>
+                    {{ if len  $.ExternalLinks  }} 
+                      <button onclick="showExternalLinks()">Show External Links</button>
+                    {{ end }}
                     </td>
                     <td>
-                      {{ len  $.InAccessibleLinks  }}  
+                      {{ len  $.InAccessibleLinks  }} </br>
+                      {{ if len  $.InAccessibleLinks  }} 
+                        <button onclick="showInAccessibleLinks()">Show InAccessible Links</button> 
+                      {{ end }}
                     </td>
                 </tr>
               </table>
 
         </div>
         {{end}}
+
+        <div style="display: none;" id="external-links-div">
+          <table>
+            <th>All External Links</th>
+            {{ range  $.ExternalLinks }}  
+            <tr>
+              <td>
+                <a href="{{.}}" target="_blank">{{.}}</a>  
+              </td>
+            </tr>
+            {{ end }}
+          </table>
+        </div>
+        <div style="display: none;" id="internal-links-div">
+          <table>
+            <th>All Internal Links</th>
+            {{ range  $.InternalLinks }}  
+            <tr>
+              <td >
+                {{.}} 
+              </td>
+            </tr>
+            {{ end }}
+          </table>
+        </div>
+        <div style="display: none;" id="inaccessible-links-div">
+          <table>
+            <th>All InAccessible Links</th>
+            {{ range  $.InAccessibleLinks }}  
+            <tr>
+              <td>
+              <a href="{{.}}" target="_blank">{{.}}</a> 
+              </td>
+            </tr>
+            {{ end }}
+          </table>
+        </div>
   </body>
 </html>
