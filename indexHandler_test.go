@@ -18,9 +18,7 @@ func TestWithMultipleUrls(t *testing.T) {
 
 	for _, urlString := range urls {
 		err := testServeHTTPScripts(urlString)
-		if err != nil {
-			t.Error(err)
-		}
+		ExpectNoErr(err, "error while serving the url details")
 	}
 
 }
@@ -43,4 +41,26 @@ func testServeHTTPScripts(urlString string) error {
 	}
 
 	return nil
+}
+
+func TestIsURL(t *testing.T) {
+
+	parseRequestURLTests := []struct {
+		url           string
+		expectedValid bool
+	}{
+		// for more test inputs
+		// check this site: https://golang.org/src/net/url/url_test.go,
+		{"http://google.com", true},
+		{"http://foo.com/", true},
+		{"http://foo.com/path", true},
+		{"foo.html", false},
+		{"../dir/", false},
+		{" http://foo.com", false},
+	}
+
+	for _, v := range parseRequestURLTests {
+		found := isURL(v.url)
+		Expect(found == v.expectedValid, "error found while checking the url, %q", v.url)
+	}
 }
