@@ -30,12 +30,12 @@ This application expects the valid URL for which it gets the following details f
   6. Whether WebPage has Login Form or not.
   
   Finding this subjective to developer. 
-  But in this app, I'm deciding whether the app has login page or not based on the `input type=password`.
-  TODO:: 
-    i .Can check whether the form has method post
+  But in this app, I'm deciding whether the app has login page or not based on the `input type=password`. <br/>
+  TODO::  <br/>
+    i .Can check whether the form has method post <br/>
     ii. Should have one input with type submit. (Again this one is not necessary) 
-  
-  7. Each Heading Tag Count.
+
+7. Each Heading Tag Count.
   
   Count the H1, H2, H3, H4, H5, H6 Tags in the page.
   
