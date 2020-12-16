@@ -110,22 +110,22 @@ func (me *indexHandler) handler(w http.ResponseWriter, r *http.Request) {
 func (me *indexHandler) getAllHeadTagsCount(root *html.Node) map[string]int {
 
 	hTags := make(map[string]int, 0)
-	headingNode := getAllNodes(root, getElementByTag(atom.H1))
+	headingNode := getAllNodes(root, getElementByTag(atom.H1)) //h1 tag
 	hTags["h1"] = len(headingNode)
 
-	headingNode = getAllNodes(root, getElementByTag(atom.H2))
+	headingNode = getAllNodes(root, getElementByTag(atom.H2)) //h2 tag
 	hTags["h2"] = len(headingNode)
 
-	headingNode = getAllNodes(root, getElementByTag(atom.H3))
+	headingNode = getAllNodes(root, getElementByTag(atom.H3)) //h3 tag
 	hTags["h3"] = len(headingNode)
 
-	headingNode = getAllNodes(root, getElementByTag(atom.H4))
+	headingNode = getAllNodes(root, getElementByTag(atom.H4)) //h4 tag
 	hTags["h4"] = len(headingNode)
 
-	headingNode = getAllNodes(root, getElementByTag(atom.H5))
+	headingNode = getAllNodes(root, getElementByTag(atom.H5)) //h5 tag
 	hTags["h5"] = len(headingNode)
 
-	headingNode = getAllNodes(root, getElementByTag(atom.H6))
+	headingNode = getAllNodes(root, getElementByTag(atom.H6)) //h6 tag
 	hTags["h6"] = len(headingNode)
 
 	return hTags
@@ -192,6 +192,9 @@ func (me *indexHandler) hasLoginForm(root *html.Node) bool {
 		if passwordFieldCount == 1 {
 			return true
 		}
+
+		//TODO:: Can check whether the FORM has method 'POST' & 'type button submit'.
+		//But doing this is subjective.
 	}
 
 	return false
@@ -214,11 +217,9 @@ func (me *indexHandler) getAllInaccessibleLinks(allLinks []string) []string {
 				return
 			}
 
-			if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
-				fmt.Println("HTTP Status is in the 2xx range")
-			} else {
+			if resp.StatusCode < 200 && resp.StatusCode > 300 {
 				inaccessibleLinks = append(inaccessibleLinks, link)
-				fmt.Printf("Broken link: %q", link)
+				fmt.Printf("Broken link: %q, status code: %d", link, resp.StatusCode)
 			}
 		}(link)
 	}
